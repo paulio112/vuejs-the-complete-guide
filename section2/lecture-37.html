@@ -9,26 +9,38 @@
 </head>
 <body>
     <div id="app">
-        <button v-on:click='increase'> increase </button>
+        <button v-on:click='increase(2), $event'> increase </button>
         <button v-on:click='reset'> Reset Counter </button>
         <p>Counter = {{ counter }}</p>
+        <p v-on:mousemove='updateCoordinates'>
+             Cordinates: {{ x }} / {{y }}
+         <span v-on:mousemove.stop=''>DeadSpot</span>
+        </p>
+        <input type='text' v-on:keyup.enter.space='alertMe'>
     </div>
-    
-
-  
-
     <script>
         new Vue({
             el: '#app',
             data: {
-               counter:0
+               counter:0,
+               x: 0,
+               y: 0
             }, 
             methods: {
-              increase:function(){
-                return this.counter++
+              increase:function(step,event){
+                return this.counter += step;
               },
               reset: function(){
-                  return this.counter = 0
+                  this.counter = 0;
+                  this.x = 0;
+                  this.y = 0;
+              },
+              updateCoordinates: function(event){
+                  this.x = event.clientX;
+                  this.y = event.clientY;
+              },
+              alertMe: function(){
+                  alert('Key Up action');
               }
             }
         });
