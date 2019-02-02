@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../vue.js"></script> 
+    <title>Vue JS</title>
+</head>
+<body>
+    <div id="app">
+     <button v-on:click='counter++'> Increase  </button>
+     <button v-on:click='counter--'> Decrease  </button>
+     <button v-on:click='secondCounter++'> Increase Second  </button>
+     <p>{{counter}} -- {{secondCounter}}</p>
+     <p>{{result()}} --- {{output}}</p>
+    </div>
+   
+    <script>
+    new Vue ({ 
+        el: '#app',
+        data: {
+            counter: 0,
+            secondCounter:0
+        },
+        computed: {
+            output:function(){
+                console.log('computed');
+                return this.counter > 5 ? 'Greater than 5' : 'Less than 5'
+            }
+        },
+        watch: {
+            counter: function(value){
+                var vm = this;
+                setTimeout(function() {
+                    vm.counter= 0;
+                },2000);
+            }
+        },
+        methods: {
+            result(){
+                console.log('result');
+                return this.counter > 5 ? 'Greater than 5' : 'Less than 5'
+            }
+        }
+    })
+    
+    </script>
+</body>
+</html>
